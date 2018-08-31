@@ -1,2 +1,2 @@
 # Spring-Exercise-Projects
-Projects for exerciing Spring functionalities
+Projects for exercising Spring functionalities
