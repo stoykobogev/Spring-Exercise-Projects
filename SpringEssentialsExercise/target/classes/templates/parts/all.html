@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments/head"></th:block>
+    <th:block th:replace="fragments/navbar"></th:block>
+</head>
+<body>
+<div class="container">
+    <th:block th:switch="${parts.isEmpty()}">
+        <th:block th:case="false">
+            <table class="table table-striped justify-content-around">
+                <thead>
+                <tr class="row">
+                    <th class="col-3">Name</th>
+                    <th class="col-2">Price</th>
+                    <th class="col-2">Quantity</th>
+                    <th class="col-2">Supplier</th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="part : ${parts}" th:object="${part}">
+                    <tr class="row">
+                        <td class="col-3" th:text="*{name}"></td>
+                        <td class="col-2" th:text="*{price}"></td>
+                        <td class="col-2" th:text="*{quantity}"></td>
+                        <td class="col-2" th:text="*{supplier.name}"></td>
+                        <td class="col-3">
+                            <form class="d-inline" method="get" action="/parts/edit">
+                                <input type="text" name="name" th:value="*{name}" hidden>
+                                <input type="number" name="quantity" th:value="*{quantity}" hidden>
+                                <input type="number" name="price" th:value="*{price}" hidden>
+                                <input type="text" name="supplierName" th:value="*{supplier.name}" hidden>
+                                <input class="btn btn-secondary m-1" type="submit" value="Edit">
+                            </form>
+                            <form class="d-inline" method="get" action="/parts/delete">
+                                <input type="text" name="name" th:value="*{name}" hidden>
+                                <input type="number" name="price" th:value="*{price}" hidden>
+                                <input type="text" name="quantity" th:value="*{quantity}" hidden>
+                                <input type="text" name="supplierName" th:value="*{supplier.name}" hidden>
+                                <input class="btn btn-secondary m-1" type="submit" value="Delete">
+                            </form>
+                        </td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </th:block>
+        <th:block th:case="true">
+            <h1 class="h1 mr-5">There are no parts</h1>
+        </th:block>
+    </th:block>
+</div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments/head"></th:block>
+    <th:block th:replace="fragments/navbar"></th:block>
+</head>
+<body>
+<div class="container">
+    <th:block th:switch="${customers.isEmpty()}">
+        <th:block th:case="false">
+            <table class="table table-striped justify-content-around">
+                <thead>
+                    <tr class="row">
+                        <th class="col-4">Name</th>
+                        <th class="col-4">Birth Date</th>
+                        <th class="col-2">Young Driver</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <th:block th:each="customer : ${customers}" th:object="${customer}">
+                        <tr class="row">
+                            <td class="col-4" th:text="*{name}"></td>
+                            <td class="col-4" th:text="${customer.getBirthDateAsString()}"></td>
+                            <td class="col-2" th:text="*{isYoungDriver() ? 'Yes' : 'No'}"></td>
+                            <td class="col-2">
+                                <form method="get" action="/customers/edit">
+                                    <input type="text" name="name" th:value="*{name}" hidden>
+                                    <input type="date" name="birthDate" th:value="${customer.getBirthDateAsString()}" hidden>
+                                    <input class="btn btn-secondary" type="submit" value="Edit">
+                                </form>
+                            </td>
+                        </tr>
+                    </th:block>
+                </tbody>
+            </table>
+        </th:block>
+        <th:block th:case="true">
+            <h1 class="h1 mr-5">There are no customers</h1>
+        </th:block>
+    </th:block>
+</div>
+</body>
+</html>

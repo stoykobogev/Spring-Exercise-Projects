@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments/head"></th:block>
+    <th:block th:replace="fragments/navbar"></th:block>
+</head>
+<body>
+<th:block th:switch="${suppliers.isEmpty()}">
+    <div class="container">
+        <div class="col-3 offset-5">
+            <a class="btn btn-primary mt-5 mb-5 ml-1" href="/suppliers/add">New Supplier</a>
+        </div>
+        <th:block th:case="false">
+            <div>
+                <table class="table justify-content-around text-center offset-1">
+                    <thead>
+                    <tr class="row">
+                        <th class="col-2" scope="col">Id</th>
+                        <th class="col-3" scope="col">Name</th>
+                        <th class="col-2" scope="col">Number of Parts</th>
+                        <th class="col-3" scope="col">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:each="supplier : ${suppliers}" th:object="${supplier}">
+                        <tr class="row">
+                            <td class="col-2" th:text="*{id}"></td>
+                            <td class="col-3" th:text="*{name}"></td>
+                            <td class="col-2" th:text="*{partsCount}"></td>
+                            <td class="col-3">
+                                <a class="btn btn-secondary m-2" th:href="@{/suppliers/edit/{id}(id=*{id})}">Edit</a>
+                                <a class="btn btn-secondary m-2"
+                                   th:href="@{/suppliers/delete/{id}(id=*{id})}">Delete</a>
+                            </td>
+                        </tr>
+                    </th:block>
+                    </tbody>
+                </table>
+            </div>
+        </th:block>
+        <th:block th:case="true">
+            <hr/>
+            <h1 class="h1 mr-5">There are no suppliers</h1>
+        </th:block>
+    </div>
+</th:block>
+</body>
+</html>

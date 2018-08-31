@@ -1,0 +1,41 @@
+<th:block th:fragment="navbar">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link " href="/">Home<span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link " href="/customers/all/ascending">Customers</a>
+                <a class="nav-item nav-link" href="/cars/all">Cars</a>
+                <a class="nav-item nav-link" href="/parts/all">Parts</a>
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Sales
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/sales">All</a>
+                        <a class="dropdown-item" href="/sales/discounted">Discounted</a>
+                    </div>
+                </div>
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Suppliers
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/suppliers/local">Local</a>
+                        <a class="dropdown-item" href="/suppliers/importers">Importers</a>
+                    </div>
+                </div>
+                <th:block th:if="${#session == null || #session.getAttribute('username') == null}">
+                    <a class="nav-item nav-link" href="/users/register">Register</a>
+                    <a class="nav-item nav-link" href="/users/login">Login</a>
+                </th:block>
+                <th:block th:if="${#session != null && #session.getAttribute('username') != null}">
+                    <a class="nav-item nav-link" href="/logs/all">Logs</a>
+                    <a class="nav-item nav-link" href="/users/logout">Logout</a>
+                </th:block>
+            </div>
+        </div>
+    </nav>
+</th:block>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments/head"></th:block>
+    <th:block th:replace="fragments/navbar"></th:block>
+</head>
+<body>
+<th:block th:switch="${sale != null}">
+    <div class="container">" th:case="true" th:object="${sale}">
+        <div class="mt-5 col-6 offset-3">
+            <form method="post" action="/sales/review">
+                <div class="form-group">
+                    <label for="customeName">Discount Percentage: </label>
+                    <input class="form-control" type="text" id="customeName" name="customerName" th:value="*{customerName}" disabled/>
+                </div>
+                <div class="form-group">
+                    <label for="carMake">Discount Percentage: </label>
+                    <input class="form-control" type="text" id="carMake" name="carMake" th:value="*{carMake}" disabled/>
+                </div>
+                <div class="form-group">
+                    <label for="carModel">Discount Percentage: </label>
+                    <input class="form-control" type="text" id="carModel" name="carModel" th:value="*{carModel}" disabled/>
+                </div>
+                <div class="form-group">
+                    <label for="discount">Discount Percentage: </label>
+                    <input class="form-control" type="text" id="discount" name="discount" th:value="*{discount}" disabled/>
+                </div>
+                <div class="form-group">
+                    <label for="priceFull">Discount Percentage: </label>
+                    <input class="form-control" type="text" id="priceFull" name="priceFull" th:value="*{priceFull}" disabled/>
+                </div>
+                <div class="form-group">
+                    <label for="priceDiscounted">Discount Percentage: </label>
+                    <input class="form-control" type="text" id="priceDiscounted" name="priceDiscounted" th:value="*{priceDiscounted}" disabled>
+                </div>
+                <input class="btn btn-primary" type="submit" value="Finalize"/>
+                <a class="btn btn-secondary" href="javascript:history.back()">Cancel</a>
+            </form>
+        </div>
+    </div>
+    <h1 th:case="false">There is no sale with this ID</h1>
+</th:block>
+</body>
+</html>

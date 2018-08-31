@@ -1,0 +1,39 @@
+.my-background {
+    background-color: #AFEEEE;
+}
+
+.my-hr {
+    color: #AFEEEE;
+    height: 0.2rem;
+    border: none;
+}
+
+.h-font-weight {
+    font-weight: 600;
+}
+
+.my-button {
+    background-color: #AFEEEE;
+    border-color: #AFEEEE;
+}
+
+.span-error {
+    color: red;
+}
+
+.w-45 {
+    width: 45%;
+}
+
+.w-40 {
+    width: 40%;
+}
+
+.w-20 {
+    width: 20%;
+}
+
+.my-btn-link {
+    background-color: transparent;
+    border: transparent;
+}

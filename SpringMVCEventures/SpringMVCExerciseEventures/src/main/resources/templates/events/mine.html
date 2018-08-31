@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<body>
+<th:block layout:fragment="content">
+    <h1 class="text-center font-weight-bold">My Events</h1>
+    <hr class="my-hr my-background"/>
+    <th:block th:switch="${eventsList == null || eventsList.isEmpty()}">
+        <table th:case="false" class="table">
+            <thead>
+            <tr class="row">
+                <th class="col-1">#</th>
+                <th class="col-5">Name</th>
+                <th class="col-2">Start</th>
+                <th class="col-2">End</th>
+                <th class="col-2">Tickets</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="row" th:each="event, iter : ${eventsList}" th:object="${event}">
+                <td class="col-1" th:text="${iter.count}"></td>
+                <td class="col-5" th:text="*{name}"></td>
+                <td class="col-2" th:text="*{start}"></td>
+                <td class="col-2" th:text="*{end}"></td>
+                <td class="col-2" th:text="*{ticketsCount}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <h2 th:case="true" class="font-weight-bold text-center m-5">No events</h2>
+    </th:block>
+</th:block>
+</body>
+</html>
+

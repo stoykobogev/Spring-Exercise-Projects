@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments/head"></th:block>
+    <th:block th:replace="fragments/navbar"></th:block>
+</head>
+<body>
+<th:block th:switch="${car == null}">
+    <div class="text-center mt-2" th:case="false" th:object="${car}">
+        <h3 th:text="|Make: *{make}|"></h3>
+        <h3 th:text="|Model: *{model}|"></h3>
+        <h3 th:text="|Travelled Distance: *{travelledDistance} km|"></h3>
+        <h3>Parts:</h3>
+        <th:block th:switch="*{parts.isEmpty()}">
+            <div class="text-center col-8 m-auto" th:case="false">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="part : *{parts}">
+                            <td th:text="${part.name}"></td>
+                            <td th:text="${part.price}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p th:case="true">No parts</p>
+        </th:block>
+    </div>
+    <th:block th:case="true">
+        <h1 class="h1 mr-5">There is no car with this id</h1>
+    </th:block>
+</th:block>
+</body>
+</html>

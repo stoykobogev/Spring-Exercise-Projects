@@ -1,0 +1,58 @@
+<th:block
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<th:block th:fragment="navbar">
+    <nav class="navbar navbar-expand-lg navbar-light my-background font-weight-bold mb-3">
+        <a class="navbar-brand text-dark" href="#">Eventures</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-dark" th:href="${#authorization.expression('isAuthenticated()') ? '/home' : '/'}">Home</a>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Events
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/events/all">All Events</a>
+                        <a class="dropdown-item" href="/events/mine">My Events</a>
+                        <th:block sec:authorize="hasAuthority('ADMIN')">
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/events/create">Create Event</a>
+                        </th:block>
+                    </div>
+                </li>
+                <li sec:authorize="hasAuthority('ADMIN')" class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown2" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Orders
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                        <a class="dropdown-item" href="/orders/all">All Orders</a>
+                    </div>
+                </li>
+                <th:block sec:authorize="isAnonymous()">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/register">Register</a>
+                    </li>
+                </th:block>
+                <li sec:authorize="isAuthenticated()" class="nav-item">
+                    <form class="mb-0" action="/logout" method="post">
+                        <button type="submit" class="btn btn-link nav-link text-dark font-weight-bold">Logout</button>
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</th:block>
+</th:block>

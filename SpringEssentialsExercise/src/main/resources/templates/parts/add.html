@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments/head"></th:block>
+    <th:block th:replace="fragments/navbar"></th:block>
+</head>
+<body>
+<div class="container">
+    <div class="mt-5 col-6 offset-3">
+        <form method="post" action="/parts/add">
+            <div class="form-group">
+                <label for="name">Name: </label>
+                <input class="form-control" type="text" id="name" name="name" required/>
+            </div>
+            <div class="form-group">
+                <label for="price">Price: </label>
+                <input class="form-control" type="number" step="0.01" min="0" id="price" name="price" value="0.00" required/>
+            </div>
+            <div class="form-group">
+                <label for="quantity">Quantity: </label>
+                <input class="form-control" type="number" min="1" id="quantity" name="quantity" value="1" required/>
+            </div>
+            <div class="form-group">
+                <label for="supplierName">Supplier: </label>
+                <select th:unless="${supplierNames.isEmpty()}" class="form-control" name="supplierName" id="supplierName" required>
+                    <option th:each="supplierName : ${supplierNames}"
+                            th:value="${supplierName}" th:text="${supplierName}"></option>
+                </select>
+            </div>
+            <input class="btn btn-primary center" type="submit" value="Submit"/>
+        </form>
+        <div class="alert alert-danger text-center mt-3 font-weight-bold" role="alert"
+             th:if="${exceptionMessage != null}" th:text="${exceptionMessage}"></div>
+    </div>
+</div>
+</body>
+</html>

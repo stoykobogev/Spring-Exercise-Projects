@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments/head"></th:block>
+    <th:block th:replace="fragments/navbar"></th:block>
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center m-5">Delete Part?</h1>
+    <div class="mt-5 col-6 offset-3">
+        <form method="post" action="/parts/delete">
+            <div class="form-group">
+                <label for="name">Name: </label>
+                <input class="form-control" type="text" id="name" th:value="${name}" disabled/>
+            </div>
+            <div class="form-group">
+                <label for="price">Price: </label>
+                <input class="form-control" type="number" id="price" step="0.01" min="0" th:value="${price}" disabled/>
+            </div>
+            <div class="form-group">
+                <label for="quantity">Name: </label>
+                <input class="form-control" type="text" id="quantity" min="1" th:value="${quantity}" disabled/>
+            </div>
+            <div class="form-group">
+                <label for="supplierName">Supplier: </label>
+                <input class="form-control" type="text" id="supplierName" th:value="${supplierName}" disabled/>
+            </div>
+            <input class="form-control" type="text" name="name" th:value="${name}" hidden/>
+            <input class="form-control" type="text" name="supplierName" th:value="${supplierName}" hidden/>
+            <input class="btn btn-primary center" type="submit" value="Confirm"/>
+        </form>
+    </div>
+</div>
+</body>
+</html>

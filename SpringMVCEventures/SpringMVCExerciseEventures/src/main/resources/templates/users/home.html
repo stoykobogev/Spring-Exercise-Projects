@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<body>
+<th:block layout:fragment="content">
+    <div class="my-background rounded pt-5 pb-5 pl-4 pr-4 text-center">
+        <h1 class="h-font-weight" th:text="|Welcome, ${#authentication.name}|"></h1>
+        <hr class="my-hr bg-dark"/>
+        <h2 class="h-font-weight text-muted">Eventures wishes you and exciting experience.</h2>
+    </div>
+</th:block>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments/head"></th:block>
+    <th:block th:replace="fragments/navbar"></th:block>
+</head>
+<body>
+<div class="container">
+    <div class="mt-5 col-6 offset-3">
+        <form method="post" action="/customers/add">
+            <div class="form-group">
+                <label for="name">Name: </label>
+                <input class="form-control" type="text" id="name" name="name" required/>
+            </div>
+            <div class="form-group">
+                <label for="birthDate">Birth Date: </label>
+                <input class="form-control" type="date" id="birthDate" name="birthDate" required/>
+            </div>
+            <input class="btn btn-primary center" type="submit" value="Submit"/>
+        </form>
+        <div class="alert alert-danger text-center mt-3 font-weight-bold" role="alert"
+             th:if="${exceptionMessage != null}" th:text="${exceptionMessage}"></div>
+    </div>
+</div>
+</body>
+</html>

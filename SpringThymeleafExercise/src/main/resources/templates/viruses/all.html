@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments/head"></th:block>
+</head>
+<body>
+<th:block th:switch="${viruses.isEmpty()}">
+    <div class="container">
+        <h1 class="mt-5 mb-5">All Viruses</h1>
+        <th:block th:case="false">
+            <div>
+                <table class="table justify-content-around text-center">
+                    <thead>
+                    <tr class="row">
+                        <th class="col-1" scope="col">#</th>
+                        <th class="col-3" scope="col">Name</th>
+                        <th class="col-2" scope="col">Magnitude</th>
+                        <th class="col-3" scope="col">Released On</th>
+                        <th class="col-3" scope="col">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:each="virus : ${viruses}" th:object="${virus}">
+                        <tr class="row">
+                            <td class="col-1" th:text="*{id}"></td>
+                            <td class="col-3" th:text="*{name}"></td>
+                            <td class="col-2" th:text="*{magnitude}"></td>
+                            <td class="col-3" th:text="*{#temporals.format(releasedOn, 'dd-MMM-yyyy')}"></td>
+                            <td class="col-3">
+                                <a class="btn btn-secondary" th:href="@{/viruses/edit/{id}(id=*{id})}">Edit</a>
+                                <a class="btn btn-secondary"
+                                   th:href="@{/viruses/delete/{id}(id=*{id})}">Delete</a>
+                            </td>
+                        </tr>
+                    </th:block>
+                    </tbody>
+                </table>
+            </div>
+        </th:block>
+        <th:block th:case="true">
+            <hr/>
+            <h1 class="h1 mr-5">There are no viruses</h1>
+        </th:block>
+    </div>
+</th:block>
+</body>
+</html>

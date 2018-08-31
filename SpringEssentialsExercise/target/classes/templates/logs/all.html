@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments/head"></th:block>
+    <th:block th:replace="fragments/navbar"></th:block>
+</head>
+<body>
+<th:block th:switch="${logs == null || logs.isEmpty()}">
+    <div class="container">
+        <div class="row">
+            <div class="col-6 offset-1 mt-3 mb-3">
+                <form class="form-inline" action="/logs/all" method="post">
+                    <div class="form-group">
+                        <input type="text" name="username" class="form-control" placeholder="Username...">
+                    </div>
+                    <input type="submit" class="btn btn-primary m-2" value="Search Logs"/>
+                </form>
+            </div>
+            <div class="col-2 offset-1 mt-3 mb-3">
+                <form class="form-inline" action="/logs/all/delete" method="post">
+                    <input type="submit" class="btn btn-danger m-2" value="Clear All Logs"/>
+                </form>
+            </div>
+        </div>
+        <th:block th:case="false">
+            <div>
+                <table class="table justify-content-around text-center offset-1">
+                    <thead>
+                    <tr class="row">
+                        <th class="col-2" scope="col">User</th>
+                        <th class="col-2" scope="col">Operation</th>
+                        <th class="col-2" scope="col">Modified Table</th>
+                        <th class="col-3" scope="col">Time</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:each="log : ${logs}" th:object="${log}">
+                        <tr class="row">
+                            <td class="col-2" th:text="*{username}"></td>
+                            <td class="col-2" th:text="*{operation}"></td>
+                            <td class="col-2" th:text="*{modifiedTable}"></td>
+                            <td class="col-3" th:text="*{extractDateTime()}"></td>
+                        </tr>
+                    </th:block>
+                    </tbody>
+                </table>
+            </div>
+        </th:block>
+        <th:block th:case="true">
+            <hr/>
+            <h1 class="h1 mr-5">There are no logs</h1>
+        </th:block>
+    </div>
+</th:block>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments/head"></th:block>
+    <th:block th:replace="fragments/navbar"></th:block>
+</head>
+<body>
+<div class="container">
+    <th:block th:switch="${supplier != null}">
+        <th:block th:case="true">
+            <div class="mt-5 col-6 offset-3">
+                <form method="post" th:action="@{/suppliers/edit/{id}(id=${supplier.id})}">
+                    <div class="form-group">
+                        <label for="name">Name: </label>
+                        <input class="form-control" type="text" id="name" name="newName" th:value="${supplier.name}" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="isImporter">Is Importer: </label>
+                        <select class="form-control" id="isImporter" name="isImporter">
+                            <option th:selected="${supplier.isImporter()}" th:value="${true}">Yes</option>
+                            <option th:selected="${!supplier.isImporter()}" th:value="${false}">No</option>
+                        </select>
+                    </div>
+                    <input th:value="${supplier.name}" name="oldName" type="text" hidden/>
+                    <input class="btn btn-primary center" type="submit" value="Edit"/>
+                </form>
+                <div class="alert alert-danger text-center mt-3 font-weight-bold" role="alert"
+                     th:if="${exceptionMessage != null}" th:text="${exceptionMessage}"></div>
+            </div>
+        </th:block>
+        <th:block th:case="false">
+            <h1 class="h1 mr-5">There is no supplier with this id</h1>
+        </th:block>
+    </th:block>
+</div>
+</body>
+</html>

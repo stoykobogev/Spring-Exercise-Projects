@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<body>
+<th:block layout:fragment="content">
+    <h1 class="text-center font-weight-bold">All Orders</h1>
+    <hr class="my-hr my-background"/>
+    <th:block th:switch="${orderList == null || orderList.isEmpty()}">
+        <table th:case="false" class="table">
+            <thead>
+            <tr class="row">
+                <th class="col-1">#</th>
+                <th class="col-5">Event</th>
+                <th class="col-3">Customer</th>
+                <th class="col-3">Ordered On</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="row" th:each="order, iter : ${orderList}" th:object="${order}">
+                <td class="col-1" th:text="${iter.count}"></td>
+                <td class="col-5" th:text="*{eventName}"></td>
+                <td class="col-3" th:text="*{customerName}"></td>
+                <td class="col-3" th:text="*{orderedOn}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <h2 th:case="true" class="font-weight-bold text-center m-5">No orders</h2>
+    </th:block>
+</th:block>
+</body>
+</html>
+

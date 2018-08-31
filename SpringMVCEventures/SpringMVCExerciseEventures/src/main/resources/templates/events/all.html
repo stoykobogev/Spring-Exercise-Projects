@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<body>
+<th:block layout:fragment="content">
+    <h1 class="text-center font-weight-bold">All Events</h1>
+    <hr class="my-hr my-background"/>
+    <th:block th:switch="${eventsPage == null || !eventsPage.hasContent()}">
+        <th:block th:case="false">
+            <table class="table">
+                <thead>
+                <tr class="row">
+                    <th class="col-1">#</th>
+                    <th class="col-2">Name</th>
+                    <th class="col-2">Start</th>
+                    <th class="col-2">End</th>
+                    <th class="col-1">Tickets</th>
+                    <th class="col-4">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr class="row" th:each="event, iter : ${eventsPage}" th:object="${event}">
+                        <td class="col-1" th:text="${iter.count + eventsPage.getNumber() * eventsPage.getSize()}"></td>
+                        <td class="col-2" th:text="*{name}"></td>
+                        <td class="col-2" th:text="*{start}"></td>
+                        <td class="col-2" th:text="*{end}"></td>
+                        <td class="col-1" th:text="*{totalTickets}"></td>
+                        <td class="col-4">
+                            <form action="/orders/send" method="post">
+                                <div class="form-group">
+                                    <label class="mr-2" for="ticketsCount">Tickets</label>
+                                    <input class="form-control w-50" style="display: inline" type="number"
+                                           id="ticketsCount" name="ticketsCount" required min="0">
+                                    <input type="text" name="customerName" th:value="${#authentication.name}" hidden>
+                                    <input type="text" name="eventId" th:value="*{id}" hidden>
+                                    <button type="submit" class="ml-2 btn btn-primary my-background text-dark my-button">Order</button>
+                                    <div class="csrf">
+                                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                                    </div>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <th:block th:replace="fragments/pagination :: pagination(${eventsPage})"></th:block>
+        </th:block>
+        <h2 th:case="true" class="font-weight-bold text-center m-5">No events</h2>
+    </th:block>
+</th:block>
+</body>
+</html>
+

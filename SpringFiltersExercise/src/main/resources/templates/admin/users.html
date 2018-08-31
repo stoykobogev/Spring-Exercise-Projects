@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments/head"></th:block>
+</head>
+<body>
+<div class="container-fluid">
+    <header>
+        <th:block th:replace="fragments/navbar"></th:block>
+    </header>
+    <h1 class="mt-5 mb-5 text-center">All Users</h1>
+    <div>
+        <table class="table justify-content-around text-center">
+            <thead>
+            <tr class="row">
+                <th class="col-3" scope="col">Username</th>
+                <th class="col-3" scope="col">Role</th>
+                <th class="col-3" scope="col">Email</th>
+                <th class="col-2" scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="user : ${users}" th:object="${user}">
+                <tr class="row">
+                    <td class="col-3" th:text="*{username}"></td>
+                    <td class="col-3" th:text="*{role}"></td>
+                    <td class="col-3" th:text="*{email}"></td>
+                    <td class="col-2">
+                        <a class="btn btn-secondary" th:href="@{/admin/users/edit/{id}(id=*{id})}">Edit</a>
+                    </td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

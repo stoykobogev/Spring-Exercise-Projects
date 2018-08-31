@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments/head"></th:block>
+    <th:block th:replace="fragments/navbar"></th:block>
+</head>
+<body>
+<th:block th:switch="${sales.isEmpty()}">
+    <th:block th:case="false">
+        <h1>Sale IDs:</h1>
+        <th:block th:each="sale : ${sales}" th:object="${sale}">
+            <h3 th:text="|Sale ID: *{id}|"></h3>
+            <h3 th:text="|Discount: *{discount}|"></h3>
+            <h3 th:text="|Price: *{priceFull}|"></h3>
+            <h3 th:text="|Price with Discount: *{priceDiscounted}|"></h3>
+            <hr/>
+        </th:block>
+    </th:block>
+    <h1 th:case="true">There are no sales</h1>
+</th:block>
+</body>
+</html>

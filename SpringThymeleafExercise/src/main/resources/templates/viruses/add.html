@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments/head"></th:block>
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-5 mb-5">Spread a new Virus!</h1>
+    <form method="post" action="/viruses/add" th:object="${model}">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input class="form-control" th:classappend="${#fields.hasErrors('name')} ? 'border-danger'" id="name" name="name" type="text" th:field="*{name}"/>
+            <small class="span-error" th:each="error : ${#fields.errors('name')}" th:text="${error}"></small>
+        </div>
+        <div class="form-group" >
+            <label for="description">Description</label>
+            <textarea class="form-control" style="resize: none; height: 100px"
+                      th:classappend="${#fields.hasErrors('description')} ? 'border-danger'"
+                      id="description" name="description" th:field="*{description}"></textarea>
+            <small class="span-error" th:each="error : ${#fields.errors('description')}" th:text="${error}"></small>
+        </div>
+        <div class="form-group">
+            <label for="sideEffects">Side Effects</label>
+            <input class="form-control" id="sideEffects" name="sideEffects" type="text" th:field="*{sideEffects}"
+                   th:classappend="${#fields.hasErrors('sideEffects')} ? 'border-danger'"/>
+            <small class="span-error" th:each="error : ${#fields.errors('sideEffects')}" th:text="${error}"></small>
+        </div>
+        <div class="form-group">
+            <label for="creator">Creator</label>
+            <input class="form-control" id="creator" name="creator" type="text" th:field="*{creator}"
+                   th:classappend="${#fields.hasErrors('creator')} ? 'border-danger'"/>
+            <small class="span-error" th:each="error : ${#fields.errors('creator')}" th:text="${error}"></small>
+        </div>
+        <div class="form-group">
+            <input id="isDeadly" name="isDeadly" type="checkbox" th:field="*{isDeadly}"/>
+            <label for="isDeadly">Is Deadly?</label>
+        </div>
+        <div class="form-group">
+            <input id="isCurable" name="isCurable" type="checkbox" th:field="*{isCurable}"/>
+            <label for="isCurable">Is Curable?</label>
+        </div>
+        <div class="form-group" th:classappend="${#fields.hasErrors('mutation')} ? 'text-danger'">
+            <input type="radio" name="mutation" value="ZOMBIE" th:field="*{mutation}"/> ZOMBIE<br/>
+            <input type="radio" name="mutation" value="T_078_TYRANT" th:field="*{mutation}"/> T_078_TYRANT<br/>
+            <input type="radio" name="mutation" value="GIANT_SPIDER" th:field="*{mutation}"/> GIANT_SPIDER<br/>
+            <small class="span-error" th:each="error : ${#fields.errors('mutation')}" th:text="${error}"></small>
+        </div>
+        <div class="form-group">
+            <label for="turnoverRate">Turnover Rate</label>
+            <input class="form-control" id="turnoverRate" name="turnoverRate" type="number" th:field="*{turnoverRate}"
+                min="0" max="100"
+                   th:classappend="${#fields.hasErrors('turnoverRate')} ? 'border-danger'"/>
+            <small class="span-error" th:each="error : ${#fields.errors('turnoverRate')}" th:text="${error}"></small>
+        </div>
+        <div class="form-group">
+            <label for="hoursUntilTurn">Hours Until Turn</label>
+            <input class="form-control" id="hoursUntilTurn" name="hoursUntilTurn" type="number" th:field="*{hoursUntilTurn}"
+                   min="1" max="12"
+                   th:classappend="${#fields.hasErrors('hoursUntilTurn')} ? 'border-danger'"/>
+            <small class="span-error" th:each="error : ${#fields.errors('hoursUntilTurn')}" th:text="${error}"></small>
+        </div>
+        <div class="form-group">
+            <label for="magnitude">Magnitude</label>
+            <select class="form-control" id="magnitude" name="magnitude" th:field="*{magnitude}"
+                    th:classappend="${#fields.hasErrors('magnitude')} ? 'border-danger'">
+                <option value="LOW">Low</option>
+                <option value="MEDIUM">Medium</option>
+                <option value="HIGH">High</option>
+            </select>
+            <small class="span-error" th:each="error : ${#fields.errors('magnitude')}" th:text="${error}"></small>
+        </div>
+        <div class="form-group" >
+            <label for="releasedOn">Release Date</label>
+            <input class="form-control" id="releasedOn" name="releasedOn" type="date" th:field="*{releasedOn}"
+                   th:classappend="${#fields.hasErrors('releasedOn')} ? 'border-danger'"/>
+            <small class="span-error" th:each="error : ${#fields.errors('releasedOn')}" th:text="${error}"></small>
+        </div>
+        <div class="form-group">
+            <label for="capitals">Capitals</label>
+            <select class="form-control" id="capitals" name="capitals" th:field="*{capitals}" multiple
+                    th:classappend="${#fields.hasErrors('capitals')} ? 'border-danger'">
+                <option th:each="capital : ${capitals}" th:value="${capital.name}" th:text="${capital.name}"></option>
+            </select>
+            <small class="span-error" th:each="error : ${#fields.errors('capitals')}" th:text="${error}"></small>
+        </div>
+        <input class="btn btn-primary m-5" type="submit" value="Submit">
+        <a href="javascript:history.back()" class="btn btn-secondary float-right m-5">Cancel</a>
+    </form>
+</div>
+</body>
+</html>
